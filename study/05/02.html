@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Jquery瀑布流</title>
+    <style>
+        * { margin: 0; padding: 0; }
+        #main { position: relative; margin: 0 auto; }
+        .box { float: left; padding:15px 0 0 15px; }
+        .pic { padding: 10px; border-radius: 4px; box-shadow: 0 0 5px #ccc; }
+        img { width:200px; height:auto; }
+    </style>
+    <script src="../js/jquery.js"></script>
+    <script>
+        $(window).on('load',function(){
+            waterfall();
+            var oData = { 'data': [{ 'src': '1.jpg' }, { 'src': '2.jpg' }, { 'src': '3.jpg' }, { 'src': '55.jpg' }, { 'src': '14.jpg' }, { 'src': '24.jpg' }] };
+            $(window).on('scroll', function () {
+                if (checkScrollslide()) {
+                    $.each(oData.data, function (key, obj) {
+                        //parent.append(child)  child.appendTo(parent)
+                        var oBox = $('<div>').addClass('box').appendTo($('#main'));
+                        var oPic = $('<div>').addClass('pic').appendTo($(oBox));
+                        $('<img>').attr('src', 'img/waterfall/' + $(obj).attr('src')).appendTo($(oPic));
+                    });
+                    waterfall();
+                }
+            });
+        });
+        function waterfall() {
+            var $aBox = $('#main>div');
+            
+            //outerWidth包括padding+border
+            var iWidth=$aBox.eq(0).outerWidth();
+            var cols = Math.floor($(window).width() / iWidth);
+            
+            $('#main').width(cols * iWidth).css('margin', '0 auto');
+            var aHeight = [];
+            
+            $aBox.each(function (index,element) {
+                if (index < cols) {
+                    aHeight.push($aBox.eq(index).outerHeight());
+                } else {
+                    var minHeight = Math.min.apply(null, aHeight);
+                    //inArray 类似于 indexOf
+                    var minIndex = $.inArray(minHeight, aHeight);
+                    //直接element.css 报错 因为element中是当前dom对象
+                    $(element).css({
+                        'position': 'absolute',
+                        'left': minIndex * iWidth + 'px',
+                        'top':minHeight+'px'
+                    });
+                    aHeight[minIndex] += $aBox.eq(index).outerHeight();
+                }
+            });
+
+        }
+        
+        function checkScrollslide() {
+            var $lastBox = $('#main>div').last();
+            var boxHeight = $lastBox.offset().top + Math.floor($lastBox.outerHeight() / 2);
+            var scrollHeight = $(window).height() + $(window).scrollTop();
+            return boxHeight < scrollHeight ? true : false;
+        }
+        //css 多栏布局实现的瀑布流性能最好 但改变了图片顺序（列显示）
+        //另外随窗口大小改变 列数也会自适应改变 用户体验差
+    </script>
+</head>
+<body>
+    <div id="main">
+        <div class="box">
+            <div class="pic">
+                <img src="img/waterfall/0.jpg" />
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="img/waterfall/1.jpg" />
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="img/waterfall/2.jpg" />
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="img/waterfall/3.jpg" />
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="img/waterfall/4.jpg" />
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="img/waterfall/5.jpg" />
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="img/waterfall/6.jpg" />
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="img/waterfall/7.jpg" />
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="img/waterfall/8.jpg" />
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="img/waterfall/9.jpg" />
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="img/waterfall/10.jpg" />
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="img/waterfall/11.jpg" />
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="img/waterfall/12.jpg" />
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="img/waterfall/13.jpg" />
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="img/waterfall/14.jpg" />
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="img/waterfall/15.jpg" />
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="img/waterfall/16.jpg" />
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="img/waterfall/17.jpg" />
+            </div>
+        </div>
+    </div>
+</body>
+</html>

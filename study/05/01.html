@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />    
+    <title>JavaScript瀑布流</title>
+    <style>
+        *{ margin: 0; padding: 0; }
+        #main{ position: relative; margin: 0 auto; }
+        .box{ float: left; padding:15px 0 0 15px; }
+        .pic{ padding: 10px; border-radius: 4px; box-shadow: 0 0 5px #ccc; }
+        img{ width:200px; height:auto; }
+
+    </style>
+    <script>
+        window.onload = function () {
+            waterfall('main', 'box');
+            //json传数据
+            var oData = { 'data': [{ 'src': '1.jpg' }, { 'src': '2.jpg' }, { 'src': '3.jpg' }, { 'src': '5.jpg' }, { 'src': '14.jpg' }, { 'src': '24.jpg' }] };
+            window.onscroll = function () {
+                if (checkScrollside()) {
+                    for (var i = 0; i < oData.data.length; i++) {
+                        var oCon = document.getElementById('main');
+                        var oBox = document.createElement('div');
+                        oBox.className = 'box';
+                        oCon.appendChild(oBox);
+                        var oPic = document.createElement('div');
+                        oPic.className = 'pic';
+                        oBox.appendChild(oPic);
+                        var oImg = document.createElement('img');
+                        oImg.src = 'img/waterfall/' + oData.data[i].src;
+                        oPic.appendChild(oImg);
+                    }
+                    waterfall('main', 'box');
+                }
+            };
+
+        };
+        function checkScrollside() {
+            var oCon = document.getElementById('main');
+            var aBox = document.getElementsByClassName('box');
+            var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+            var lastHeight = Math.floor(aBox[aBox.length - 1].offsetHeight / 2) + aBox[aBox.length - 1].offsetTop;
+            //offsetTop是指包含滚动条的高度  是距离页面顶部高度而不是可视区
+            var scrollHeight = scrollTop + document.documentElement.clientHeight;
+            //底部滚动到最后一张图片高度的一半时 返回true继续向下加载图片
+            return (lastHeight < scrollHeight) ? true : false;
+        }
+        function waterfall(parent,box) {
+            var aBox = document.getElementsByClassName(box);
+            var oCon = document.getElementById(parent);
+            var iWidth = aBox[0].offsetWidth;
+            var cols = 0;
+            cols = Math.floor(document.documentElement.clientWidth / iWidth);
+            oCon.style.cssText = 'width:' + cols * iWidth + 'px;margin:0 auto;';
+            //aHeight 用于储存列高度
+            var aHeight = [];
+            for (var i = 0; i < aBox.length; i++) {
+                var iHeight = aBox[i].offsetHeight;
+                if (i < cols) {
+                    aHeight.push(iHeight);
+                    //aHeight[i] = iHeight;
+                } else {
+                    var minHeight = Math.min.apply(null, aHeight);
+                    var minIndex = aHeight.indexOf(minHeight);
+                    aBox[i].style.position = 'absolute';
+                    aBox[i].style.top = minHeight + 'px';
+                    aBox[i].style.left = aBox[minIndex].offsetLeft + 'px';
+                    //aBox[i].style.left = aBox[0].offsetWidth * minIndex;
+                    aHeight[minIndex] += aBox[i].offsetHeight;
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="main">
+        <div class="box">
+            <div class="pic">
+                <img src="img/waterfall/0.jpg" />
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="img/waterfall/1.jpg" />
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="img/waterfall/2.jpg" />
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="img/waterfall/3.jpg" />
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="img/waterfall/4.jpg" />
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="img/waterfall/5.jpg" />
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="img/waterfall/6.jpg" />
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="img/waterfall/7.jpg" />
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="img/waterfall/8.jpg" />
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="img/waterfall/9.jpg" />
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="img/waterfall/10.jpg" />
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="img/waterfall/11.jpg" />
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="img/waterfall/12.jpg" />
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="img/waterfall/13.jpg" />
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="img/waterfall/14.jpg" />
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="img/waterfall/15.jpg" />
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="img/waterfall/16.jpg" />
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="img/waterfall/17.jpg" />
+            </div>
+        </div>
+    </div>
+</body>
+</html>

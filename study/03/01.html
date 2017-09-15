@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>毛玻璃效果</title>
+	<style type="text/css">
+		body, .wrap::before{
+		  background: url(http://image.nationalgeographic.com.cn/2017/0706/20170706031700372.jpg) 0/cover fixed;
+		}
+		body {
+		   padding-top: 100px;
+		   font-family: 'Open sans';
+		}
+		.wrap::before {
+		  z-index: -1;
+		  content: '';
+		  position: absolute;
+		  top: 0; right: 0; bottom: 0; left: 0;
+		  -webkit-filter: blur(20px);
+		  filter: blur(20px);
+		}
+		.wrap {
+	    position: relative;
+	    width: 800px;
+	    height: 300px;
+	    line-height: 2;
+	    font-size: 18px;
+	    margin: 0 auto;
+	    background: hsla(0,0%,100%,.3);
+	    -webkit-border-radius: 7px;
+	    border-radius: 7px;
+		}
+		.text {
+		  padding: 30px;
+		  text-align: justify;
+		}
+	</style>
+</head>
+<body>
+	<div class="wrap">
+	  <p class="text">
+	    There are currently 120,000 protected areas covering a total of about 8 million square miles (21 million square kilometers) of land and sea. As the human population continues to grow there is a chance that fewer land and sea areas will be protected. We're asking you, our Your Shot community, to submit images to this challenge of land and sea areas that you feel should be protected. Show us parks, underwater habitats, landmarks, beautiful wide open landscapes. Show us places that need protection.
+	  </p>
+	</div>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>tab组件</title>
+	<style type="text/css">
+		body, ul, li { margin: 0; padding: 0; }
+		ul, li { list-style: none; }
+		img, a { display: block; }
+		a { color: #fff; text-decoration: none; }
+
+		body { background-color: #000; padding: 20px; color: #fff; }
+		.tab-nav li { display: inline-block; padding: 5px 10px; margin-right: 10px; background-color: #9e9e9e; }
+		.tab-nav li.active, .tab-nav li.active a { background-color: #fff; color: #000; }
+
+		.con-wrap { width: 300px; height: 200px; border: 6px solid #fff; }
+		.con-wrap div { position: absolute; display: none; }
+		.con-wrap div.current { display: block; }
+		.con-wrap img { width: 300px; height: 200px; }
+
+		.tab-box { float: left; margin-right: 50px; }
+
+	</style>
+	<script src="js/jquery.js"></script>
+	<script src="js/tab.js"></script>
+</head>
+<body>
+	<div class="tab-box">
+		<h3>1. 无参数 默认配置</h3>
+		<div class="j-tab tab">
+			<div class="tab-nav">
+				<ul>
+					<li><a href="javascript:;">新闻</a></li>
+					<li><a href="javascript:;">娱乐</a></li>
+					<li><a href="javascript:;">电影</a></li>
+					<li><a href="javascript:;">科技</a></li>
+				</ul>
+			</div>
+			<div class="con-wrap">
+				<div><img src="img/carousel/1.jpg"></div>
+				<div><img src="img/carousel/2.jpg"></div>
+				<div><img src="img/carousel/3.jpg"></div>
+				<div><img src="img/carousel/4.jpg"></div>
+			</div>
+		</div>
+	</div>
+	<div class="tab-box">
+		<h3>2. 点击切换 淡入淡出 3s自动播放</h3>
+		<div class="j-tab tab" data-config='{ "eventType": "click", "effect": "fade", "invoke": 2, "auto": 3000 }'>
+			<div class="tab-nav">
+				<ul>
+					<li><a href="javascript:;">新闻</a></li>
+					<li><a href="javascript:;">娱乐</a></li>
+					<li><a href="javascript:;">电影</a></li>
+					<li><a href="javascript:;">科技</a></li>
+				</ul>
+			</div>
+			<div class="con-wrap">
+				<div><img src="img/carousel/1.jpg"></div>
+				<div><img src="img/carousel/2.jpg"></div>
+				<div><img src="img/carousel/3.jpg"></div>
+				<div><img src="img/carousel/4.jpg"></div>
+			</div>
+		</div>
+	</div>
+	<div class="tab-box">
+		<h3>3. 悬停切换 淡入淡出</h3>
+		<div class="j-tab tab" data-config='{ "eventType": "mouseover", "effect": "fade", "invoke": 1, "auto": false }'>
+			<div class="tab-nav">
+				<ul>
+					<li><a href="javascript:;">新闻</a></li>
+					<li><a href="javascript:;">娱乐</a></li>
+					<li><a href="javascript:;">电影</a></li>
+					<li><a href="javascript:;">科技</a></li>
+				</ul>
+			</div>
+			<div class="con-wrap">
+				<div><img src="img/carousel/1.jpg"></div>
+				<div><img src="img/carousel/2.jpg"></div>
+				<div><img src="img/carousel/3.jpg"></div>
+				<div><img src="img/carousel/4.jpg"></div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		$(function(){
+			$('.j-tab').tab();
+		});
+	</script>
+</body>
+</html>

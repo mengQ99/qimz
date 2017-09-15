@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>translate轮播图</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		body, ul, li { padding: 0; margin: 0; }
+		li { list-style: none; }
+		
+		.wrap { width: 470px; margin: 50px auto; }
+		.view { position: relative; overflow: hidden; width: 470px; height: 313px; }		
+		.view ul { position: absolute; left: 0; overflow: hidden; width: 3290px; transition-duration: .5s; transform: translate3d(-470px, 0, 0); }
+		.view li { float: left; }
+
+		.cur { position: absolute; bottom: 20px; right: 20px; }
+		.cur a { display: inline-block; width: 10px; height: 10px; text-decoration: none; background-color: #fff; border-radius: 50%; }
+ 		.cur .on { background-color: red; }
+ 	</style>
+ 	<script type="text/javascript">
+ 		
+ 		window.onload = function(){
+ 			
+ 			var oWrap = document.getElementsByClassName('wrap')[0];
+ 			var oUl = oWrap.getElementsByTagName('ul')[0];
+ 			var aLi = oUl.getElementsByTagName('li');
+ 			var aA = oWrap.getElementsByTagName('a');
+ 			
+ 			var len = aLi.length - 2;
+ 			var w = aLi[0].offsetWidth;
+ 			var n = 0, index = 1;
+ 			var timer = null;
+
+ 			function next(){
+ 				index++ == len ? move(oUl, true) : move(oUl, false);
+ 				count();
+ 			}
+
+ 			//图片切换函数 
+ 			function move(obj, bool){
+ 				if(bool){
+	 				obj.style.transitionDuration = '0s';
+	 				obj.style.transform = `translate3d(0, 0, 0)`;
+	 				index = 0;
+ 				}else{
+	 				obj.style.transitionDuration = '0.5s';
+	 				obj.style.transform = `translate3d(-${index * w}px, 0, 0)`;  					
+ 				}
+ 			}
+
+ 			
+ 			//圆点自动改变状态
+ 			function count(){
+ 				for (var i = 0; i < aA.length; i++) {
+ 					aA[i].className = '';
+ 				}
+ 				index ? aA[index-1].className = 'on' : aA[aA.length-1].className = 'on';
+ 			}
+
+ 			//鼠标移入圆点切换图片
+ 			(function curr(){
+ 				for (var i = 0; i < aA.length; i++) {
+ 					aA[i].idx = i;
+ 					aA[i].onmouseover = function(){
+ 						clearInterval(next, 3000);
+ 						index = this.idx;
+ 						next();
+ 					};
+ 				}
+ 			})();
+
+ 			//鼠标移入图片停止播放
+ 			oWrap.onmouseover = function(){
+ 				clearInterval(timer);
+ 			};
+ 			//鼠标离开图片开始播放
+ 			oWrap.onmouseout = function(){
+ 				timer = setInterval(next, 3000);
+ 			}
+
+ 			//跨浏览器获取监听页面可见性事件名称
+			function getVisibilityState() {
+			    var prefixes = ['webkit', 'moz', 'ms', 'o'];
+			    if ('visibilityState' in document) return 'visibilityState';
+
+			    for (var i = 0; i < prefixes.length; i++) {
+			        if ((prefixes[i] + 'VisibilityState') in document)
+			            return prefixes[i] + 'VisibilityState';
+			    }
+
+			    return null;
+			}
+
+			//跨浏览器获取document.hidden属性
+			function getHiddenProp(){
+			    var prefixes = ['webkit','moz','ms','o'];
+
+			    if ('hidden' in document) return 'hidden';
+
+			    for (var i = 0; i < prefixes.length; i++){
+			        if ((prefixes[i] + 'Hidden') in document) 
+			            return prefixes[i] + 'Hidden';
+			    }
+			    return null;
+			}
+
+			//监听页面可见性改变定时器状态
+			if(getVisibilityState() && getHiddenProp()){
+				var eventName = getVisibilityState().replace('State', 'change').toLowerCase();
+
+	 			document.addEventListener(eventName, function(){
+	 				document[getVisibilityState()] == 'hidden' ? clearInterval(timer) : timer = setInterval(next, 3000);
+	 			}, false);		
+			}
+
+ 			
+ 		};
+ 	</script>
+</head>
+<body>
+<div class="wrap">
+	<div class="view">
+		<ul>
+			<li><img src="img/carousel/5.jpg"></li>
+			<li><img src="img/carousel/1.jpg"></li>
+			<li><img src="img/carousel/2.jpg"></li>
+			<li><img src="img/carousel/3.jpg"></li>
+			<li><img src="img/carousel/4.jpg"></li>
+			<li><img src="img/carousel/5.jpg"></li>
+			<li><img src="img/carousel/1.jpg"></li>
+		</ul>
+		<div class="cur">
+			<a class="on" href="javascript"></a>
+			<a href="javascript:;"></a>
+			<a href="javascript:;"></a>
+			<a href="javascript:;"></a>
+			<a href="javascript:;"></a>
+		</div>	
+	</div>
+
+</div>
+</body>
+</html>

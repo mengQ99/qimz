@@ -1,0 +1,269 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>图片幻灯片</title>
+    <meta charset="utf-8" />    
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            background:#ccc;
+        }
+        li{ list-style: none; }
+        img{ border: 0; }
+        
+        #wrapper {
+            width: 400px;
+            margin: auto;
+        }
+        #bigImg{
+            overflow: hidden;
+            position: relative;
+            width: 400px;
+            height: 400px;
+            background: #fff;
+            border: 2px solid #fff;
+            border-radius: 5px;
+        }
+        .prev{
+            position: absolute; 
+            width: 60px; 
+            height: 60px; 
+            background: url(img/btn.gif) no-repeat; 
+            top: 170px; 
+            left: 10px; 
+            z-index: 3001; 
+            cursor: pointer; 
+            filter: alpha(opacity=0); 
+            opacity: 0;
+            cursor: pointer;
+        }
+        .next{
+            position: absolute;
+            width: 60px; 
+            height: 60px; 
+            background: url(img/btn.gif) no-repeat 0 -60px; 
+            position: absolute; 
+            top: 170px; 
+            right: 10px; 
+            z-index: 3001;
+            cursor: pointer; 
+            filter: alpha(opacity= 0); 
+            opacity: 0;
+            cursor: pointer;
+        }
+        .markPrev{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200px;
+            height: 400px;
+            background: red;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            z-index: 3000;
+        }
+        .markNext{
+            position:absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 400px;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            z-index: 3000;
+        }
+        #bigImg ul li{
+            position: absolute;
+            overflow: hidden;
+            width: 400px;
+            height: 400px;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+        #bigImg ul img {
+            width: 400px;
+            height: 400px;
+        }
+        #smallImg{
+            overflow: hidden;
+            position: relative;
+            margin: 20px 17px;
+            width: 380px;
+            height: 100px;
+            background: #ccc;
+        }
+        #smallImg ul{
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        #smallImg ul li{
+            float: left;
+            width: 110px;
+            height: 100px;
+            padding-right: 20px;
+            filter: alpha(opacity=60);
+            opacity: .6;
+        }
+        #smallImg ul li img{
+            width: 110px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="bigImg">
+            <div class="prev"></div>
+            <div class="next"></div>
+            <div class="markPrev"></div>
+            <div class="markNext"></div>
+            <ul>
+                <li style="z-index:1"><img src="img/face1.jpg" /></li>
+                <li><img src="img/face2.jpg" /></li>
+                <li><img src="img/face3.jpg" /></li>
+                <li><img src="img/face4.jpg" /></li>
+                <li><img src="img/face7.jpg" /></li>
+                <li><img src="img/face6.jpg" /></li>
+            </ul>
+        </div> 
+        <div id="smallImg">
+            <ul >
+                <li><img src="img/face1.jpg" /></li>
+                <li><img src="img/face2.jpg" /></li>
+                <li><img src="img/face3.jpg" /></li>
+                <li><img src="img/face4.jpg" /></li>
+                <li><img src="img/face7.jpg" /></li>
+                <li><img src="img/face6.jpg" /></li>
+            </ul>
+        </div>  
+    </div>
+    <script>
+
+        function getStyle(obj, attr) {
+            if (obj.currentStyle) {
+                return obj.currentStyle[attr]; //ie
+            } else {
+                return getComputedStyle(obj, false)[attr]; //ff
+            }
+        }
+
+        //简单运动框架
+        function startMove(obj, attr, iTarget) {
+            clearInterval(obj.timer);
+            obj.timer = setInterval(function () {
+                var iCur = 0;
+                if (attr == 'opacity') {
+                    iCur = parseInt(parseFloat(getStyle(obj, attr)) * 100);
+                }
+                else {
+                    iCur = parseInt(getStyle(obj, attr));
+                }
+
+                var iSpeed = (iTarget - iCur) / 8;
+                iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+                if (iCur == iTarget) {
+                    clearInterval(obj.timer);
+                } else {
+                    if (attr == 'opacity') {
+                        obj.style.filter = 'alpha(opacity=' + (iCur + iSpeed) + ')';
+                        obj.style.opacity = (iCur + iSpeed) / 100;
+                    } else {
+                        obj.style[attr] = iCur + iSpeed + 'px';
+                    }
+                }
+            }, 30);
+        }
+
+
+        var iZindex = 2;
+        var iNow = 0;
+        var oBig = document.getElementById('bigImg');
+        var oSmall = document.getElementById('smallImg');
+        var aBig = oBig.getElementsByTagName('li');
+        var aSmall = oSmall.getElementsByTagName('li');
+        var oUl = oSmall.getElementsByTagName('ul')[0];
+        var oUl1 = oBig.getElementsByTagName('ul')[0];
+        
+        var oPrev = oBig.getElementsByClassName('prev')[0];
+        var oNext = oBig.getElementsByClassName('next')[0];
+        var oMarkPrev = oBig.getElementsByClassName('markPrev')[0];
+        var oMarkNext = oBig.getElementsByClassName('markNext')[0];
+
+        oUl.style.width = (aSmall[0].offsetWidth) * (aSmall.length+2) + 'px';
+        
+        oPrev.onmouseover = oMarkPrev.onmouseover = function () {
+            startMove(oPrev, 'opacity', 100);
+        };
+        oNext.onmouseover = oMarkNext.onmouseover = function () {
+            startMove(oNext, 'opacity', 100);
+        };
+        oPrev.onmouseout = oMarkPrev.onmouseout = function () {
+            startMove(oPrev, 'opacity', 0);
+        };
+        oNext.onmouseout = oMarkNext.onmouseout = function () {
+            startMove(oNext, 'opacity', 0);
+        };
+        for (var i = 0; i < aSmall.length; i++) {
+            aSmall[i].index = i;
+            aSmall[i].onmouseover = function () {
+                startMove(this, 'opacity', 100);
+            };
+            aSmall[i].onmouseout = function () {
+                //如果当前小图片不与大图对应则鼠标移出透明度改变
+                if (this.index != iNow) {
+                    startMove(this, 'opacity', 60);
+                }
+            };
+            aSmall[i].onclick = function () {
+                //当前图片重复点击不做动作
+                if (iNow == this.index) {
+                    return;
+                }
+                iNow = this.index;
+                tab();
+            };
+            function tab() {
+                //点击其它 将其他小图 透明度变暗 当前透明度100%
+                for (i = 0; i < aSmall.length; i++) {
+                    startMove(aSmall[i], 'opacity', 60);
+                }
+                startMove(aSmall[iNow], 'opacity', 100);
+
+                //点击小图大图改变
+                aBig[iNow].style.zIndex = iZindex++;
+                aBig[iNow].style.height = 0;
+
+                startMove(aBig[iNow], 'height', 400);
+
+                //点击小图 下面的ul滑动以让后面的图片显示      
+                if (iNow == 0) {
+                    startMove(oUl, 'left', 0);
+                } else if (iNow == aSmall.length - 1) {
+                    startMove(oUl, 'left', -(iNow - 2) * aSmall[0].offsetWidth);
+                } else {
+                    startMove(oUl, 'left', -(iNow - 1) * aSmall[0].offsetWidth);
+                }
+            }
+
+            //prev next 事件
+            oPrev.onclick = function () {
+                iNow--;
+                if (iNow == -1) {
+                    iNow = aSmall.length - 1;
+                }
+                tab();
+            };
+            oNext.onclick = function () {
+                iNow++;
+                if (iNow == aSmall.length) {
+                    iNow = 0;
+                }
+                tab();
+            };
+        }
+    </script>
+</body>
+</html>
