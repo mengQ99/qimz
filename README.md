@@ -1,3 +1,8 @@
 # qimz
-[qimz.cc][1] [1]: http://qimz.cc
+[qimz.cc][1] 
+
+### 2017.09.15
+个人网站的雏形 许多优化以及响应式还没有实现
+
+[1]: http://qimz.cc
 
