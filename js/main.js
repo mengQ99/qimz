@@ -9,12 +9,13 @@ $(function(){
 	$(window).resize(function(event) {
 		w = $(window).width();
 		aNav.each(function(index, el) {
-			$(this).css('width', w);
+			aItem.eq(index).css('width', w);
 		});
 	});
 
+
 	//监听hashchange 实现前端路由
-	$(window).on('hashchange load', hashChangeHandler);
+	$(window).on('hashchange load resize', hashChangeHandler);
 
 	aNav.each(function(idx, el){
 		aHash.push($(el).attr('href'));
@@ -28,7 +29,7 @@ $(function(){
 	}
 
 	function hashChangeHandler(){
-		var curHash = location.hash || '';
+		var curHash = location.hash || '#/Welcome';
 		var index = aHash.indexOf(curHash);
 		changePage(index);
 	};
@@ -55,11 +56,11 @@ $(function(){
 				oIcon.removeClass('close');
 				oInfo.fadeOut('fast');
 				oBtnWrap.animate({ paddingTop: 80 }, 300, function(){
-					oBtnWrap.find('h1').animate({'fontSize': '60px'});
+					oBtnWrap.find('h1').animate({'fontSize': '3.75em'});
 				});
 			} else {
 				oIcon.addClass('close');
-				oBtnWrap.find('h1').animate({'fontSize': '40px'}, 300, function(){
+				oBtnWrap.find('h1').animate({'fontSize': '2.5em'}, 300, function(){
 					oBtnWrap.animate({ paddingTop: 0 }, function(){
 						oInfo.fadeIn();
 					});
@@ -82,6 +83,7 @@ $(function(){
 	(function(){
 		var aBtn = $('.list i');
 		var aUl = $('.list ol');
+		var aLi = $('.list li');
 		var flag = true, iHeight;
 
 		aBtn.click(function(){
