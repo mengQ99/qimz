@@ -15,7 +15,12 @@ $(function(){
 
 
 	//监听hashchange 实现前端路由
-	$(window).on('hashchange load resize', hashChangeHandler);
+	$(window).on('hashchange load', hashChangeHandler);
+
+	//注册resize事件防止resize时页面错乱
+	$(window).on('resize', hashChangeHandler);
+
+
 
 	aNav.each(function(idx, el){
 		aHash.push($(el).attr('href'));
@@ -29,6 +34,7 @@ $(function(){
 	}
 
 	function hashChangeHandler(){
+		if(aHash.indexOf(location.hash) == -1 ) return;
 		var curHash = location.hash || '#/Welcome';
 		var index = aHash.indexOf(curHash);
 		changePage(index);
@@ -40,11 +46,11 @@ $(function(){
 	(function(){
 		var arrTips = ['虽然有点Hello-World', '这是我的博客', 'FreeCodeCamp编程挑战', '这里存放代码段'];
 		var oWelcome = $('.welcome'),
-				oBtnWrap = $('.btns-wrap'),
-				oIcon = $('.welcome .icon'),
-				oInfo = $('.info'),
-				aBtn = $('.btns a'),
-				oTips = $('.tips');
+			oBtnWrap = $('.btns-wrap'),
+			oIcon = $('.welcome .icon'),
+			oInfo = $('.info'),
+			aBtn = $('.btns a'),
+			oTips = $('.tips');
 
 
 
@@ -72,9 +78,9 @@ $(function(){
 		//按钮hover交互
 		aBtn.hover(function() {
 			var idx = aBtn.index($(this));
-			oTips.html(arrTips[idx]);			
+			oTips.hide().html(arrTips[idx]).stop().fadeIn();			
 		}, function() {
-			oTips.html('');
+			oTips.stop().fadeOut();
 		});
 
 	})();
