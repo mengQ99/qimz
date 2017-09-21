@@ -11,6 +11,7 @@ body {  width: 100%; height: 100%; color: #444; font-family: 'microsoft yahei', 
 .clear:after { clear: both; display: block; content: ''; height: 0; visibility: hidden; }
 .dv { width: 100%; height: 0; color: #ddd; border-bottom: 1px solid; }
 ::selection { color: #fff; background: #808080; }
+::-moz-selection { color: #fff; background: #808080; }
 
 .wrap { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; }
 .main { position: relative; top: 0; left: 0; width: 1000%; height: 100%; }
@@ -33,7 +34,8 @@ body {  width: 100%; height: 100%; color: #444; font-family: 'microsoft yahei', 
 .welcome .btns { position: relative; }
 .welcome .btns a { display: inline-block; padding: 5px 15px; color: #fff; border: 1px solid; background-color: #333; font-size: 13px; }
 .welcome .btns a:hover { background-color: #444; }
-.welcome .tips { height: 20px; font-size: 13px; color: #757575; padding: 10px 0; }
+.welcome .tips-wrap { height: 20px; padding: 10px 0; }
+.welcome .tips {  font-size: 13px; color: #757575; }
 .welcome .info { display: none; line-height: 2; padding: 20px; }
 .welcome .info a { color: #616161; font-size: 1.875em; font-style: italic; }
 .welcome .info a:hover { color: #e57373; }
@@ -62,7 +64,7 @@ body {  width: 100%; height: 100%; color: #444; font-family: 'microsoft yahei', 
 .about .detail-info strong { display: block; }
 .about .detail-info h4 { text-indent: -40px; }
 .about .basic-info { padding-left: 120px; }
-.about .basic-info p { margin-left: 50px; line-height: 35px; }
+.about .basic-info p { margin-left: 50px; line-height: 35px; padding-top: 20px; }
 .about .basic-info img{ width: 100px; height: 100px; border-radius: 50%; }
 
 .contact-me { width: 300px; margin: 50px auto; font-size: 22px; text-align: left; }
@@ -90,7 +92,7 @@ body {  width: 100%; height: 100%; color: #444; font-family: 'microsoft yahei', 
 	.about .content { width: auto; text-align: center;}
 	.about .detail-info .session { margin-left: 20px; text-align: left; }
 	.about .basic-info { padding-left: 0; }
-	.about .basic-info p { margin-left: 0; }
+	.about .basic-info p { margin-left: 0; padding-top: 0; }
 	.about .fl { float: none; }
 	.about h3 { padding-bottom: 20px; }
 	
