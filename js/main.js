@@ -1,46 +1,66 @@
 $(function(){
 
-	var aNav = $('.nav a');
-	var aItem = $('.item');
-	var oMain = $('.main');
-	var w = $(window).width();
-	var aHash = []; //存储页面hash
+	//页面切换模块
+	(function(){
 
-	$(window).resize(function(event) {
-		w = $(window).width();
-		aNav.each(function(index, el) {
-			aItem.eq(index).css('width', w);
+		var aNav = $('.nav a');
+		var aItem = $('.item');
+		var oMain = $('.main');
+		var w = $(window).width();
+		var aHash = []; //存储页面hash
+
+		$(window).resize(function(event) {
+			w = $(window).width();
+			aNav.each(function(index, el) {
+				aItem.eq(index).css('width', w);
+			});
 		});
-	});
 
 
-	//监听hashchange 实现前端路由
-	$(window).on('hashchange load', hashChangeHandler);
+		//监听hashchange 实现前端路由
+		$(window).on('hashchange load', hashChangeHandler);
 
-	//注册resize事件防止resize时页面错乱
-	$(window).on('resize', hashChangeHandler);
+		//注册resize事件防止resize时页面错乱
+		$(window).on('resize', hashChangeHandler);
 
-
-
-	aNav.each(function(idx, el){
-		aHash.push($(el).attr('href'));
-	});
-
-	function changePage(index){
-		aItem.css('overflow', 'hidden');
-		$('.main').animate({ left: -w * index }, 1000, function(){
-			aItem.eq(index).css('overflow', 'auto');
+		//注册键盘事件 页面左右切换
+		$(document).keyup(function(ev) {
+			var index = aHash.indexOf(location.hash || '#/Welcome');
+			switch(ev.which){
+				case 37:
+					if(!index) return;
+					location.hash = aHash[index-1].slice(1);
+					break;
+				case 39:
+					if(index == aHash.length-1)	return;
+					location.hash = aHash[index+1].slice(1);
+					break;
+				default:
+					break;
+			}
+			ev.stopPropagation();
 		});
-	}
-
-	function hashChangeHandler(){
-		if(aHash.indexOf(location.hash) == -1 ) return;
-		var curHash = location.hash || '#/Welcome';
-		var index = aHash.indexOf(curHash);
-		changePage(index);
-	};
 
 
+		aNav.each(function(idx, el){
+			aHash.push($(el).attr('href'));
+		});
+
+		function changePage(index){
+			aItem.css('overflow', 'hidden');
+			$('.main').animate({ left: -w * index }, 1000, function(){
+				aItem.eq(index).css('overflow', 'auto');
+			});
+		}
+
+		function hashChangeHandler(){
+			if(aHash.indexOf(location.hash) == -1 ) return;
+			var curHash = location.hash || '#/Welcome';
+			var index = aHash.indexOf(curHash);
+			changePage(index);
+		};
+
+	})();
 
 	//welcome 页面模块
 	(function(){

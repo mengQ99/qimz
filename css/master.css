@@ -23,7 +23,7 @@ body {  width: 100%; height: 100%; color: #444; font-family: 'microsoft yahei', 
 .loading { z-index: 1000; position: absolute; top: 0; left: 0; width: 0%; height: 5px; background-color: #616161; transition: load .2s linear; }
 
 
-.nav { position: fixed; left: 50%; width: 660px; height: 80px; line-height: 60px; border-bottom: 1px solid #eee; z-index: 100; transform: translate3d(-50%, 0, 0); }
+.nav { position: fixed; left: 50%; width: 660px; height: 80px; line-height: 60px; border-bottom: 1px solid #eee; z-index: 100; transform: translate3d(-50%, 0, 0); margin-left: -318px\0; }
 .nav i, .nav a { margin-left: 50px; }
 .nav a { font-family: 'Ubuntu', sans-serif; border-bottom: 1px solid; font-size: 1.125em; }
 .nav .logo { font-size: 40px; font-family: 'Permanent Marker', cursive; border-bottom: none; cursor: pointer; }
@@ -41,12 +41,12 @@ body {  width: 100%; height: 100%; color: #444; font-family: 'microsoft yahei', 
 .welcome .info { display: none; line-height: 2; padding: 20px; }
 .welcome .info a { color: #616161; font-size: 1.875em; font-style: italic; }
 .welcome .info a:hover { color: #e57373; }
-.welcome .icon { position: absolute; bottom: 60px; left: 50%; padding: 27px 10px 0; margin: 0 auto; cursor: pointer; transform: translate3d(-50%, 0, 0); }
-.welcome .icon div { height: 3px; width: 27px; background-color: #808080; transition: all .2s ease-in-out; }
+.welcome .icon { position: absolute; bottom: 60px; left: 50%; padding: 27px 10px 0; margin: 0 auto; cursor: pointer; transform: translate3d(-50%, 0, 0); left: 48%\0; border: 1px dashed #808080\0; }
+.welcome .icon div { height: 3px; width: 27px; background-color: #808080; transition: all .2s ease-in-out; background-color: #fff\0; }
 .icon .i1 { transform: rotate(45deg) translate3d(0, -10px, 0); }
 .icon .i2 { transform: rotate(-45deg) translate3d(0, -15px, 0); }
-.icon.close .i1 { transform: rotate(45deg) translate3d(-12px, -10px, 0); background-color: #bbb; }
-.icon.close .i2 { transform: rotate(-45deg) translate3d(12px, -15px, 0); background-color: #bbb; }
+.icon.close .i1 { transform: rotate(45deg) translate3d(-12px, -10px, 0); background-color: #bbb; background-color: #fff\0; }
+.icon.close .i2 { transform: rotate(-45deg) translate3d(12px, -15px, 0); background-color: #bbb; background-color: #fff\0; }
 
 .portfolio .list-box { width: 400px; margin: 0 auto; text-align: left; }
 .portfolio .list { position: relative; margin: 10px 0; padding: 0 8px; border: 1px dashed; border-radius: 5px; }
